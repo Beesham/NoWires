@@ -1,1 +1,3 @@
-This is the build instructions
+Build Instructions were followed off the PrintrBot website.
+
+http://printrbot.com/project/simple-makers/
