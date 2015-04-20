@@ -1,0 +1,6 @@
+Setting up the NoWiresApp
+
+Chenge line 26 and 27 to your websites database login credentials
+Change line 50 of SignIn_To_Databse.java to your respective url.
+
+Compile Source Code (project) to apk
