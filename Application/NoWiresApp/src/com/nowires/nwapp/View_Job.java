@@ -6,7 +6,9 @@ import java.util.concurrent.ExecutionException;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -15,8 +17,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -29,6 +29,7 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
 	ProgressBar progb;
 	
 	ListView jobListOnPrinterLV;
+	View empty;
 	EditActArrayAdapter adapter=null;
 	ArrayList<String> jobonPrinterAL;
 	
@@ -44,6 +45,7 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
 		
 		mydb = new MySQLiteHelper(this);
 		b = this.getIntent().getExtras();
+
 		
 		if(b.containsKey("printerSelectedS")) pName = b.getString("printerSelectedS");
 		
@@ -65,7 +67,7 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
 		jobonPrinterAL = new ArrayList<String>();
 
 		try {
-			jobonPrinterAL = new File_Manipulation_On_Printer(0,null,null).execute(pURL,pAPIKey).get();
+			jobonPrinterAL = new File_Manipulation_On_Printer(0,null,null,this).execute(pURL,pAPIKey).get();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,8 +84,6 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
 		adapter = new EditActArrayAdapter (this,jobonPrinterAL);
 		jobListOnPrinterLV.setAdapter(adapter);
 	    adapter.notifyDataSetChanged();
-		
-		
 	}
 
 	@Override
@@ -98,7 +98,7 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
 		try {
 			for(int i=0;i<(((EditActArrayAdapter) adapter).getSelectedChkBx()).size();i++){//for(int i=0;i<recipesAL.size();i++){
 				try{
-					new File_Manipulation_On_Printer(2,((((EditActArrayAdapter) adapter).getSelectedChkBx()).get(i)),null).execute(pURL,pAPIKey).get();
+					new File_Manipulation_On_Printer(2,((((EditActArrayAdapter) adapter).getSelectedChkBx()).get(i)),null,this).execute(pURL,pAPIKey).get();
 				}catch(SQLException e){}
 			}
 		
@@ -119,6 +119,58 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
     	startActivity(i);
     }
 	
+	public void print(){
+		if(((((EditActArrayAdapter) adapter).getSelectedChkBx()).size()!=0)&&(((EditActArrayAdapter) adapter).getSelectedChkBx()).size()==1){
+			for(int i=0;i<(((EditActArrayAdapter) adapter).getSelectedChkBx()).size();i++){//for(int i=0;i<recipesAL.size();i++){
+				try{
+					new File_Manipulation_On_Printer(3,((((EditActArrayAdapter) adapter).getSelectedChkBx()).get(i)),null,this).execute(pURL,pAPIKey);
+				}catch(Exception e){
+					Log.d("Error", e.toString());
+				}
+			}
+		}
+		else{
+			new AlertDialog.Builder(this)
+    	    .setTitle("Error")
+    	    .setMessage("Please Select One File to Print")
+    	    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+    	        public void onClick(DialogInterface dialog, int which) { 
+    	        	
+    	          
+    	        }
+    	     })
+    	    .setIcon(android.R.drawable.ic_dialog_alert)
+    	     .show();
+		}
+
+	}//end of print
+	
+	public void cancel(){
+		
+		new AlertDialog.Builder(this)
+	    .setTitle("Alert!")
+	    .setMessage("Are you sure you want to stop the print job?")
+	    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	        	doCancel();
+	        }
+	     })
+	     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	        	
+	          
+	        }
+	     })
+	    .setIcon(android.R.drawable.ic_dialog_alert)
+	    .show();
+
+	}//end of cancel
+	
+	public void doCancel(){
+		new File_Manipulation_On_Printer(4,null,null,this).execute(pURL,pAPIKey);
+	}
+	
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -129,6 +181,12 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
 				switch (item.getItemId()) {
 				case R.id.action_delete_job :
 					delete();
+					return true;
+				case R.id.action_print_job :
+					print();
+					return true;
+				case R.id.action_cancel_job :
+					cancel();
 					return true;
 				case android.R.id.home:
 					back();
@@ -142,7 +200,7 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
 	public void onContentChanged() {
 	    super.onContentChanged();
 
-	    View empty = findViewById(R.id.empty);
+	    empty = findViewById(R.id.empty);
 	    ListView list = (ListView) findViewById(R.id.joblistonPrinter);
 	    list.setEmptyView(empty);
 	}

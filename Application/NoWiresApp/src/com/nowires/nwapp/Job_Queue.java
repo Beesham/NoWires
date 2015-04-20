@@ -7,14 +7,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.database.SQLException;
 import android.net.ConnectivityManager;
@@ -26,7 +24,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class Job_Queue extends Activity implements
@@ -87,12 +84,10 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
 				}catch(SQLException sqle){throw sqle;}
 				
 				try {
-					jobsinPrinter = new File_Manipulation_On_Printer(0,jobAL.get(i),curFilePath+"/"+jobAL.get(i)).execute(pURL,pAPIKey).get();
+					jobsinPrinter = new File_Manipulation_On_Printer(0,jobAL.get(i),curFilePath+"/"+jobAL.get(i),this).execute(pURL,pAPIKey).get();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
@@ -101,12 +96,11 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
 						fileToDelAftUpld = jobsinPrinter.get(j);
 						delete(1);
 					}
-					else new File_Manipulation_On_Printer(1,jobAL.get(i),curFilePath+"/"+jobAL.get(i)).execute(pURL,pAPIKey);
+					else new File_Manipulation_On_Printer(1,jobAL.get(i),curFilePath+"/"+jobAL.get(i),this).execute(pURL,pAPIKey);
 				}
 						
-				
-				
-				jobListLV = (ListView)findViewById(R.id.joblist);//getListView();		
+
+				jobListLV = (ListView)findViewById(R.id.joblist);	
 				adapter = new EditActArrayAdapter (this,jobAL);
 				jobListLV.setAdapter(adapter);
 			    adapter.notifyDataSetChanged();
@@ -122,7 +116,6 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
 		case(0):{
 				for(int i=0;i<(((EditActArrayAdapter) adapter).getSelectedChkBx()).size();i++){//for(int i=0;i<recipesAL.size();i++){
 					try{
-							//Log.d("removing from db: ",(((EditActArrayAdapter) adapter).getSelectedChkBx()).get(i));
 							mydb.openDataBaseWrite();
 							mydb.removeJob((((EditActArrayAdapter) adapter).getSelectedChkBx()).get(i));//recipesAL.get(i));
 							mydb.closedb();
@@ -132,17 +125,14 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
 			}
 		case(1):{
 					try{
-						//Log.d("removing from db: ",(((EditActArrayAdapter) adapter).getSelectedChkBx()).get(i));
 						mydb.openDataBaseWrite();
 						mydb.removeJob(fileToDelAftUpld);//recipesAL.get(i));
 						mydb.closedb();
 					}catch(SQLException e){Log.d("SQLException2",e.toString());}
 					finally{mydb.closedb();}
 				}
-		}
-		
+		}	
 		recreate();	//refreshes the screen to display updated data
-		
 	}
 	
 	@Override
@@ -277,27 +267,18 @@ ActionBar.TabListener,ActionBar.OnNavigationListener {
 	
 	//gets job from database 
 	public void getJobs(){
-		
-		//jobAL = new ArrayList<String>();
-		//getJobs();
-		
 		if(!jobAL.isEmpty())
-		Log.d("from al",jobAL.get(0));
-		
+		Log.d("from al",jobAL.get(0));		
 		try {
 			mydb.openDataBaseRead();
 			jobAL = mydb.getJobFromJobsPathTbl();
 		    mydb.closedb();
 		}catch(SQLException sqle){throw sqle;}
-		//Log.d("Joq_Queue", "getting jobs0");
-		
+
 		jobListLV = (ListView)findViewById(R.id.joblist);//getListView();		
 		adapter = new EditActArrayAdapter (this,jobAL);
 		jobListLV.setAdapter(adapter);
-	    adapter.notifyDataSetChanged();
-	    
-		
-			
+	    adapter.notifyDataSetChanged();		
 	}
 	
 	public void back(){

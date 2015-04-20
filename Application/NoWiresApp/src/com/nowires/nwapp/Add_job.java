@@ -1,8 +1,6 @@
 package com.nowires.nwapp;
 
 import com.example.fileexplorer.FileChooser;
-import com.example.fileexplorer.R;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,7 +15,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 
@@ -55,33 +52,23 @@ public class Add_job extends Activity {
 			mydb.closedb();
 		}catch(SQLException e){}
 		finally{mydb.closedb();};
-		
-		
-		        
+	        
     }//end of onCreate
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(com.nowires.nwapp.R.menu.add_job, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-  
         switch (item.getItemId()) {
-        // Respond to the action bar's Up/Home button
         case android.R.id.home:
-           // NavUtils.navigateUpFromSameTask(this);
         	back();
             return true;
         }
-        return super.onOptionsItemSelected(item);
-        
+        return super.onOptionsItemSelected(item); 
     }
 
     public void getfile(View view){ 
@@ -91,7 +78,6 @@ public class Add_job extends Activity {
 
     // Listen for results.
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        // See which child activity is calling us back.
     	if (requestCode == REQUEST_PATH){
     		if (resultCode == RESULT_OK) { 
     			curFileName = data.getStringExtra("GetFileName"); 
@@ -114,40 +100,35 @@ public class Add_job extends Activity {
     	        }
     	     })
     	    .setIcon(android.R.drawable.ic_dialog_alert)
-    	     .show();
+    	    .show();
     	}
     	else{
-    		Log.d("curFilePath",curFilePath);
-    		
-    		
-    		
-    		
-    		new AlertDialog.Builder(this)
-    	    .setTitle("Valid File")
-    	    .setMessage(getResources().getText(com.nowires.nwapp.R.string.goodFile))
-    	    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-    	        public void onClick(DialogInterface dialog, int which) { 
-    	        	
-    	           if(check_Connection()){
-    	        	   new File_Manipulation_On_Printer(1,curFileName,curFilePath+"/"+curFileName).execute(pURL,pAPIKey);
-    	    	   }
-    	           else{
-    	        	
-	    	           try{
-	    	        	   mydb.openDataBaseWrite();
-	    	        	   mydb.insertNewJobPath(curFileName, curFilePath);
-	    	        	   mydb.closedb();
-	    	        	   Log.d("Add_Job", "Inserting path");
-	    	           }
-	    	           catch(SQLException e){}
-	    	           finally{
-	    	        	   mydb.closedb();
-	    	           }
-	    	        }
-    	        }
-    	     })
-    	    .setIcon(android.R.drawable.ic_dialog_alert)
-    	     .show();
+    		 if(check_Connection())	
+    			 new File_Manipulation_On_Printer(1,curFileName,curFilePath+"/"+curFileName,this).execute(pURL,pAPIKey);
+	         else{
+	  	           try{
+	  	        	   mydb.openDataBaseWrite();
+	  	        	   mydb.insertNewJobPath(curFileName, curFilePath);
+	  	        	   mydb.closedb();
+	  	        	   Log.d("Add_Job", "Inserting path");
+	  	           	}
+	  	           catch(SQLException e){}
+	  	           finally{
+	  	        	   mydb.closedb();
+	  	           	}
+
+		    		new AlertDialog.Builder(this)
+		    	    .setTitle("Valid File")
+		    	    .setMessage(getResources().getText(com.nowires.nwapp.R.string.goodFile))
+		    	    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+		    	        public void onClick(DialogInterface dialog, int which) { 
+		    	        	
+		    	          
+		    	        }
+		    	     })
+		    	    .setIcon(android.R.drawable.ic_dialog_alert)
+		    	     .show();
+	          }
     	}
     }//end of validateFile 
     
@@ -155,9 +136,7 @@ public class Add_job extends Activity {
 	{
 	    ConnectivityManager connectivityManager = (ConnectivityManager)
 	    		getSystemService(Context.CONNECTIVITY_SERVICE);
-	    
-	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-	    
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();  
 	    return activeNetworkInfo != null && activeNetworkInfo.isConnected();  //return true if network is available| false if not available
 	}
     

@@ -2,11 +2,8 @@ package com.nowires.nwapp;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.URI;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import org.apache.http.HttpResponse;
@@ -17,20 +14,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
 
 public class SignIn_To_Database  extends AsyncTask<String,Void,ArrayList<PrinterDataObj>>{
 
-   private TextView statusField,roleField;
    private Context context;
    private int byGetOrPost = 0; 
    String result = null;
    PrinterDataObj pDObj;
    ArrayList<PrinterDataObj> prinDObjAL;
-   
+   private ProgressDialog pd;
+
 
    public SignIn_To_Database(Context context,int flag){
       this.context = context;
@@ -40,7 +37,8 @@ public class SignIn_To_Database  extends AsyncTask<String,Void,ArrayList<Printer
    }
 
    protected void onPreExecute(){
-
+	   pd = new ProgressDialog(context);//getContext.getmyContext());
+	   pd = ProgressDialog.show(context,"","Getting Printers...",false);
    }
    
    @Override
@@ -51,7 +49,7 @@ public class SignIn_To_Database  extends AsyncTask<String,Void,ArrayList<Printer
 	            String password = (String)arg0[1];
 	            String link = "http://kirolous.com/static/php/logindb.php?username="
 	            +username+"&password="+password;
-	            URL url = new URL(link);
+	            new URL(link);
 	            HttpClient client = new DefaultHttpClient();
 	            HttpGet request = new HttpGet();
 	            request.setURI(new URI(link));
@@ -74,7 +72,6 @@ public class SignIn_To_Database  extends AsyncTask<String,Void,ArrayList<Printer
 	            try{
 	            	JSONArray jArray = new JSONArray(result);
 	            	
-	            	int flag = 1;
 	            	for (int i = 0; i < jArray.length();i++){
 	            			JSONObject json_data = jArray.getJSONObject(i);
 	            			Log.d("trying to parse json","trying");
@@ -85,14 +82,7 @@ public class SignIn_To_Database  extends AsyncTask<String,Void,ArrayList<Printer
 	            } catch (JSONException e){
 	            	Log.d("we have exception",e.toString());
 	            }
-	            
-	            
-	            //**********************
-	            if(!prinDObjAL.isEmpty())
-	            Log.d("in signin",prinDObjAL.get(0).getPrinterName().toString());
-	            else{
-	            	Log.d("arraylist","empty");
-	            }            
+           
 	            return prinDObjAL;
 	      }catch(Exception e){
 	    	  Log.d("Exception",e.toString());
@@ -101,4 +91,10 @@ public class SignIn_To_Database  extends AsyncTask<String,Void,ArrayList<Printer
 	return prinDObjAL;
       
    }
+   
+   @Override 
+	protected void onPostExecute(ArrayList<PrinterDataObj> al){
+		if(pd.isShowing()) pd.dismiss();
+	}
+   
 }

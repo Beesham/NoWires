@@ -31,7 +31,7 @@ public class PrinterDataObj {
 		return printerAPIKey;
 	}
 	
-	public void setprinterAPIKey() {
+	public void setprinterAPIKey(String printerAPIKey) {
 		this.printerAPIKey = printerAPIKey;
 	}
 		

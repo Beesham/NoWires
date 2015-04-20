@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.SQLException;
@@ -28,6 +30,9 @@ public class Select_Printer extends Activity {
 	ArrayList<PrinterDataObj> printerDObjAL;
 	Bundle b;
 	Intent i;
+	String pName,pURL,pAPIKey;
+	Context mycontext;
+	
 	
 	SharedPreferences prefs = null;
 	
@@ -41,6 +46,7 @@ public class Select_Printer extends Activity {
 		mydb = new MySQLiteHelper(this);
 		i = new Intent(this,Job_Queue.class);
 		b = new Bundle();
+		mycontext = this;
 		
 		printerDObjAL = new ArrayList<PrinterDataObj>();
 		
@@ -70,14 +76,14 @@ public class Select_Printer extends Activity {
 			getPrinters();
 			
 			if(printerAL.isEmpty()){
-				printerListLV = (ListView)findViewById(R.id.printerList);//getListView();		
+				printerListLV = (ListView)findViewById(R.id.printerList);	
 				adapter = new ArrayAdapt (this,null);
 				printerListLV.setAdapter(adapter);
 			    adapter.notifyDataSetChanged();
 			}
 			else{
 				Log.d("from al",printerAL.get(0));	
-				printerListLV = (ListView)findViewById(R.id.printerList);//getListView();		
+				printerListLV = (ListView)findViewById(R.id.printerList);	
 				adapter = new ArrayAdapt (this,printerAL);
 				printerListLV.setAdapter(adapter);
 			    adapter.notifyDataSetChanged();
@@ -92,9 +98,24 @@ public class Select_Printer extends Activity {
 						int position, long id) {
 					printerSelectedS = (String) printerListLV.getItemAtPosition(position);
 					
-					b.putString("printerSelectedS",printerSelectedS);
-					i.putExtras(b);
-					startActivity(i);
+					Check_Printer_Status cps = new Check_Printer_Status(mycontext);
+					Log.d("PrinterSelected",printerSelectedS);					
+					try {
+						if(cps.execute(printerSelectedS).get()){
+							b.putString("printerSelectedS",printerSelectedS);
+							i.putExtras(b);
+							startActivity(i);
+						}
+						else{
+							noPrinterErrMsg();				
+						}
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			});
 		}//end of check connection
@@ -102,6 +123,21 @@ public class Select_Printer extends Activity {
 			i.putExtras(b);
 			startActivity(i);
 		}
+	}
+	
+	public void noPrinterErrMsg(){
+		new AlertDialog.Builder(this)
+	    .setTitle("Printer Not Available")
+	    .setMessage("Please select another printer")
+	    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            // continue with delete
+	        }
+	     })
+	    .setIcon(android.R.drawable.ic_dialog_alert)
+	    .show();
+	    
+		Log.d("in else","else");
 	}
 
 	@Override
@@ -122,6 +158,7 @@ public class Select_Printer extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+
 	
 	public boolean check_Connection()  // determines if the network is available or not
 	{
@@ -139,7 +176,9 @@ public class Select_Printer extends Activity {
 			mydb.openDataBaseRead();
 			printerAL = mydb.getPrintersFromPrintersTbl();
 			mydb.closedb();
-		}catch(SQLException sqle){throw sqle;}
+		}catch(SQLException sqle){
+			Log.d("SQLEx",sqle.toString());
+		}
 		finally{
 		    mydb.closedb();
 		}
@@ -147,8 +186,8 @@ public class Select_Printer extends Activity {
 	}
 	
 	public void login(){
-	     String username = "beesham";//usernameField.getText().toString();
-	     String password = "nowires";//passwordField.getText().toString();
+	     String username = getResources().getString(R.string.wpdbUser);//usernameField.getText().toString();
+	     String password = getResources().getString(R.string.wpdbPass);//passwordField.getText().toString();
 	     try {
 	    	 printerDObjAL = new SignIn_To_Database(this,0).execute(username,password).get();
 			Log.d("printer info from wordpress",printerDObjAL.get(0).getPrinterName().toString());

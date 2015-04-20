@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -101,7 +100,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
  		try{mydb.execSQL("CREATE TABLE Jobs_Queue_Tbl(Job_Queue_ID integer primary key autoincrement,Job_ID_FK integer,Job_Total_Time varchar(50),foreign key (Job_ID_FK) references Jobs_Tbl(Job_ID));");}catch(SQLException e){}	
 		try{mydb.execSQL("CREATE TABLE Jobs_Path_Tbl(Job_Path_ID integer primary key autoincrement,Job_Name varchar,Job_Path varchar,Job_Upload_Status varchar);");}catch(SQLException e){}
 		try{mydb.execSQL("CREATE TABLE Printer_Tbl(Printer_ID integer primary key autoincrement,Printer_Name varchar,Printer_URL varchar,Printer_APIKey varchar);");}catch(SQLException e){}
- 		//try{mydb.execSQL("CREATE TABLE Workout_Weight_Ref_Tbl(Workout_Ref_ID integer primary key autoincrement,Workout_Completed_ID_FK integer,Weight_ID_FK integer,foreign key (Workout_Completed_ID_FK) references Workout_Completed(Workout_Completed_ID),foreign key (Weight_ID_FK) references Weight(Weight_ID));");}catch(SQLException e){}
 
  	}
 	
@@ -150,7 +148,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				values.put("printer_name", printerName);
 				values.put("printer_url", printerURL);
 				values.put("printer_apikey", printerAPIKey);
-				//mydb.update("Jobs_Path_Tbl",values,"recipe_name like'"+jobName+"'",null);
 				mydb.insert("Printer_Tbl", null, values);
 
 
@@ -297,12 +294,4 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
  	
 }//end of MySQLiteHelper class
 
-class GetContext extends Activity{
-	Context myContext;
-	
-	public Context getmyContext(){
-		myContext = (Context) getApplicationContext();
-		return myContext;
-	}
-	
-}
+

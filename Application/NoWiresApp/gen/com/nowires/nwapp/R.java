@@ -29,15 +29,19 @@ public final class R {
         public static final int ic_eye=0x7f020004;
         public static final int ic_input_add=0x7f020005;
         public static final int ic_launcher=0x7f020006;
-        public static final int ic_menu_delete=0x7f020007;
-        public static final int ic_selprinter=0x7f020008;
+        public static final int ic_menu_cancelprint=0x7f020007;
+        public static final int ic_menu_delete=0x7f020008;
+        public static final int ic_menu_print=0x7f020009;
+        public static final int ic_selprinter=0x7f02000a;
     }
     public static final class id {
         public static final int TextView01=0x7f080010;
         public static final int TextView02=0x7f080011;
         public static final int TextViewDate=0x7f080012;
         public static final int action_addJob=0x7f08001a;
+        public static final int action_cancel_job=0x7f08001b;
         public static final int action_delete_job=0x7f080018;
+        public static final int action_print_job=0x7f08001c;
         public static final int action_settings=0x7f080017;
         public static final int action_viewJobs=0x7f080019;
         public static final int addJobB=0x7f080000;
@@ -83,36 +87,31 @@ public final class R {
         public static final int view_job_tabs_actions=0x7f070008;
     }
     public static final class string {
-        public static final int Password=0x7f04001b;
-        public static final int Username=0x7f04001a;
+        public static final int Password=0x7f040015;
+        public static final int Username=0x7f040014;
         public static final int action_settings=0x7f040005;
         public static final int addJob=0x7f040006;
         public static final int app_name=0x7f040000;
-        public static final int approxFinTime=0x7f040011;
-        public static final int badFile=0x7f040017;
-        public static final int cancel=0x7f040016;
+        public static final int badFile=0x7f040012;
+        public static final int cancel=0x7f040011;
         public static final int delete=0x7f040007;
-        public static final int error=0x7f04000b;
-        public static final int goodFile=0x7f040018;
+        public static final int error=0x7f04000c;
+        public static final int goodFile=0x7f040013;
         public static final int hello_world=0x7f040001;
-        public static final int jobQueue=0x7f040012;
-        public static final int jobsInPrinterURL=0x7f04001c;
-        public static final int layerHeight=0x7f040010;
+        public static final int jobQueue=0x7f04000d;
         public static final int menu_settings=0x7f040002;
         public static final int package_name=0x7f040004;
-        public static final int selectPrinter=0x7f040009;
-        public static final int status=0x7f04000f;
-        public static final int temp=0x7f04000e;
+        public static final int print=0x7f040008;
+        public static final int selectPrinter=0x7f04000a;
         public static final int title_activity_fileexplorer=0x7f040003;
-        public static final int title_activity_job__queue=0x7f040013;
-        public static final int title_activity_printer_list=0x7f040015;
-        public static final int title_activity_select__printer=0x7f04001d;
-        public static final int title_activity_selelct__printer__main_=0x7f040019;
-        public static final int title_activity_view__job=0x7f040014;
-        public static final int totalLayers=0x7f04000d;
-        public static final int totalTime=0x7f04000c;
-        public static final int validate=0x7f04000a;
-        public static final int viewJob=0x7f040008;
+        public static final int title_activity_job__queue=0x7f04000e;
+        public static final int title_activity_printer_list=0x7f040010;
+        public static final int title_activity_select__printer=0x7f040016;
+        public static final int title_activity_view__job=0x7f04000f;
+        public static final int validate=0x7f04000b;
+        public static final int viewJob=0x7f040009;
+        public static final int wpdbPass=0x7f040018;
+        public static final int wpdbUser=0x7f040017;
     }
     public static final class style {
         /** 

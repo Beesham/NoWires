@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <item android:id="@+id/action_cancel_job"
+          android:icon="@drawable/ic_menu_cancelprint"
+          android:title="@string/print"
+          android:showAsAction="ifRoom" />
+    
+      <item android:id="@+id/action_print_job"
+          android:icon="@drawable/ic_menu_print"
+          android:title="@string/print"
+          android:showAsAction="ifRoom" />
       
      <item android:id="@+id/action_delete_job"
           android:icon="@drawable/ic_menu_delete"
