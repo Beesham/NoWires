@@ -1,11 +1,11 @@
 # NoWires
 Wireless 3D printing Web Application
 ####Objective
-This is a project that can be seen as an extension of Octoprint. Octorint is a tool that allows a user to wirelessly print using an easy and simple web interface. The problem with Octoprint is it does not allow for control of multiple 3D printers. Thus I introduce you to OctoFarm. OctoFarm is a neatly packaged web interface that builds upon Octoprint to provide support for controlling multiple printers at many different remote locations. 
+>This is a project that can be seen as an extension of Octoprint. Octorint is a tool that allows a user to wirelessly print >using an easy and simple web interface. The problem with Octoprint is it does not allow for control of multiple 3D printers. >Thus I introduce you to OctoFarm. OctoFarm is a neatly packaged web interface that builds upon Octoprint to provide support >for controlling multiple printers at many different remote locations. 
 ####Solution
-This project will solve that problem by allowing users to add multiple printers to the server therefore those printers can now be fully control through the internet via web-interface and application from anywhere that has internet access. 
+>This project will solve that problem by allowing users to add multiple printers to the server therefore those printers can >now be fully control through the internet via web-interface and application from anywhere that has internet access. 
 ####Technical details
-In order to replicate this project the user needs:
+>In order to replicate this project the user needs:
 > A 3d printer
 
 > Rassberry pi
@@ -36,10 +36,10 @@ In order to replicate this project the user needs:
 > Your web interface is now set up use view.php to add , delete or edit a printer.
 
 ####Third Party LibraryOctoprint
-GitHub Link: https://github.com/foosel/OctoPrint
+>GitHub Link: https://github.com/foosel/OctoPrint
 
-Licensing:   GENERAL PUBLIC LICENSING
+>Licensing:   GENERAL PUBLIC LICENSING
 
 ####Project Link
-Project Website: http://www.kirolous.com/nw
+>Project Website: http://www.kirolous.com/nw
 
