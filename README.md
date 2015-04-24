@@ -13,6 +13,7 @@ In order to replicate this project the user needs:
 > A Web server with (sql,php,jquery and appache) installed 
 
 > A copy of this project 
+
 ####Getting started
 
 > First you must install octoprint on your pi and connect it to your printer. Thank fully there is A rassbery pi image you can download https://github.com/fcoury/octopi
