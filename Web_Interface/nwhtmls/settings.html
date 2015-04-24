@@ -334,13 +334,13 @@ $(function(){
 
 <div class="pagination pagination-mini pagination-centered">
     <ul>
-        <li data-bind="css: {disabled: printerProfiles.profiles.currentPage() === 0}"><a href="#" data-bind="click: printerProfiles.profiles.prevPage">Â«</a></li>
+        <li data-bind="css: {disabled: printerProfiles.profiles.currentPage() === 0}"><a href="#" data-bind="click: printerProfiles.profiles.prevPage">«</a></li>
     </ul>
     <ul data-bind="foreach: printerProfiles.profiles.pages">
         <li data-bind="css: { active: $data.number === $root.printerProfiles.profiles.currentPage(), disabled: $data.number === -1 }"><a href="#" data-bind="text: $data.text, click: function() { $root.printerProfiles.profiles.changePage($data.number); }"></a></li>
     </ul>
     <ul>
-        <li data-bind="css: {disabled: printerProfiles.profiles.currentPage() === printerProfiles.profiles.lastPage()}"><a href="#" data-bind="click: printerProfiles.profiles.nextPage">Â»</a></li>
+        <li data-bind="css: {disabled: printerProfiles.profiles.currentPage() === printerProfiles.profiles.lastPage()}"><a href="#" data-bind="click: printerProfiles.profiles.nextPage">»</a></li>
     </ul>
 </div>
 
@@ -801,13 +801,13 @@ $(function(){
 </table>
 <div class="pagination pagination-mini pagination-centered">
     <ul>
-        <li data-bind="css: {disabled: users.listHelper.currentPage() === 0}"><a href="#" data-bind="click: users.listHelper.prevPage">Â«</a></li>
+        <li data-bind="css: {disabled: users.listHelper.currentPage() === 0}"><a href="#" data-bind="click: users.listHelper.prevPage">«</a></li>
     </ul>
     <ul data-bind="foreach: users.listHelper.pages">
         <li data-bind="css: { active: $data.number === $root.users.listHelper.currentPage(), disabled: $data.number === -1 }"><a href="#" data-bind="text: $data.text, click: function() { $root.users.listHelper.changePage($data.number); }"></a></li>
     </ul>
     <ul>
-        <li data-bind="css: {disabled: users.listHelper.currentPage() === users.listHelper.lastPage()}"><a href="#" data-bind="click: users.listHelper.nextPage">Â»</a></li>
+        <li data-bind="css: {disabled: users.listHelper.currentPage() === users.listHelper.lastPage()}"><a href="#" data-bind="click: users.listHelper.nextPage">»</a></li>
     </ul>
 </div>
 
@@ -1105,7 +1105,7 @@ $(function(){
     <div class="pagination pagination-mini pagination-centered">
         <ul>
             <li data-bind="css: {disabled: listHelper.currentPage() === 0}">
-                <a href="#" data-bind="click: listHelper.prevPage">Â«</a>
+                <a href="#" data-bind="click: listHelper.prevPage">«</a>
             </li>
         </ul>
         <ul data-bind="foreach: listHelper.pages">
@@ -1115,7 +1115,7 @@ $(function(){
         </ul>
         <ul>
             <li data-bind="css: {disabled: listHelper.currentPage() === listHelper.lastPage()}">
-                <a href="#" data-bind="click: listHelper.nextPage">Â»</a>
+                <a href="#" data-bind="click: listHelper.nextPage">»</a>
             </li>
         </ul>
     </div>
@@ -1178,13 +1178,13 @@ $(function(){
 </table>
 <div class="pagination pagination-mini pagination-centered">
     <ul>
-        <li data-bind="css: {disabled: profiles.currentPage() === 0}"><a href="#" data-bind="click: profiles.prevPage">Â«</a></li>
+        <li data-bind="css: {disabled: profiles.currentPage() === 0}"><a href="#" data-bind="click: profiles.prevPage">«</a></li>
     </ul>
     <ul data-bind="foreach: profiles.pages">
         <li data-bind="css: { active: $data.number === $root.profiles.currentPage(), disabled: $data.number === -1 }"><a href="#" data-bind="text: $data.text, click: function() { $root.profiles.changePage($data.number); }"></a></li>
     </ul>
     <ul>
-        <li data-bind="css: {disabled: profiles.currentPage() === profiles.lastPage()}"><a href="#" data-bind="click: profiles.nextPage">Â»</a></li>
+        <li data-bind="css: {disabled: profiles.currentPage() === profiles.lastPage()}"><a href="#" data-bind="click: profiles.nextPage">»</a></li>
     </ul>
 </div>
 
@@ -1325,7 +1325,7 @@ $(function(){
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">Print temperature (Â°C)</label>
+                                <label class="control-label">Print temperature (°C)</label>
                                 <div class="controls">
                                     <input type="text" class="input-block-level">
                                 </div>
