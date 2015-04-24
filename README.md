@@ -19,7 +19,7 @@ In order to replicate this project the user needs:
 
 ####Getting started
 
-> First you must install octoprint on your pi and connect it to your printer. Thank fully there is A rassbery pi image you can download https://github.com/fcoury/octopi
+> First you must install octoprint on your pi and connect it to your printer. Thankfully there is A rassbery pi image you can download at https://github.com/fcoury/octopi
 
 
 > Once you have setup octoprint,You must go to settings>api and check mark allow cors and generate an api key .Keep the api key in a safe place it will be needed later 
