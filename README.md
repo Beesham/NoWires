@@ -7,8 +7,7 @@ This project will solve that problem by allowing users to add multiple printers 
 #Third Party Library
 Octoprint
 GitHub Link: https://github.com/foosel/OctoPrint
-Licensing:   GENERAL PUBLIC LICENSING
-#
+Licensing: GENERAL PUBLIC LICENSING
 #PROJECT LINK
 Project Website: http://www.kirolous.com/nw
 
