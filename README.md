@@ -6,9 +6,12 @@ This is a project that can be seen as an extension of Octoprint. Octorint is a t
 This project will solve that problem by allowing users to add multiple printers to the server therefore those printers can now be fully control through the internet via web-interface and application from anywhere that has internet access. 
 ####Technical details
 In order to replicate this project the user needs:
-> A 3d printer 
+> A 3d printer
+
 > Rassberry pi
+
 > A Web server with (sql,php,jquery and appache) installed 
+
 > A copy of this project 
 
 ####Third Party Library
