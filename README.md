@@ -9,9 +9,9 @@ This project will solve that problem by allowing users to add multiple printers 
 
 ####Technical details
 In order to replicate this project the user needs:
-> A 3d printer
+> A 3D printer
 
-> Rassberry pi
+> Raspberry Pi
 
 > A Web server with (sql,php,jquery and appache) installed 
 
@@ -19,24 +19,24 @@ In order to replicate this project the user needs:
 
 ####Getting started
 
-> First you must install octoprint on your pi and connect it to your printer. Thankfully there is A rassbery pi image you can download at https://github.com/fcoury/octopi
+> First you must install octoprint on your pi and connect it to your printer. Thankfully there is A raspbery pi image you can download at https://github.com/fcoury/octopi
 
 
-> Once you have setup octoprint,You must go to settings>api and check mark allow cors and generate an api key .Keep the api key in a safe place it will be needed later 
+> Once you have setup octoprint,you must go to settings>api and check allow cors and generate an api key. Keep the api key in a safe place it will be needed later. 
 
-> One last change you have to make on your octopi is to allow cross orgin websocket.To do so fo to /home/pi/python2.7/tornado-server4.0.0.0/websocket.sy and change the def_origin to always return true.
+> One last change you have to make on your octopi is to allow cross orgin websocket. To do so go to /home/pi/python2.7/tornado-server4.0.0.0/websocket.sy and change the def_origin to always return true.
 
 
-> Now on your Web server place nwhtmls and static  on to you server
+> Now on your Web server place nwhtmls and static on to you server
 
 
 > Under static/php/ locate login-db.php and edit the username and password to reflect your own sql server login
 
 
-> For easy installation of the data base onece you enter your login info in login-db.php the code will create a Database :nowires and it will create a table called Printer_tbl
+> For easy installation of the data base once you enter your login info in login-db.php the code will create a Database :nowires and it will create a table called Printer_tbl
 
 
-> Your web interface is now set up use view.php to add , delete or edit a printer.
+> Your web interface is now set up, use view.php to add, delete or edit a printer.
 
 ####Third Party LibraryOctoprint
 >GitHub Link: https://github.com/foosel/OctoPrint
